@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/*
+ * Tailwind v4 defaults dark styling to `prefers-color-scheme`. We want an
+ * explicit, user-toggleable theme, so we redefine the `dark:` variant to react
+ * to a `.dark` class on <html> (set by ThemeProvider).
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Design tokens (light theme) ------------------------------------- */
+:root {
+  --background: #fbf5ef; /* warm cream app canvas */
+  --surface: #ffffff; /* white cards */
+  --surface-muted: #f7ece4; /* peach panels (control panel) */
+  --foreground: #241f1a; /* primary text */
+  --muted: #8c8278; /* secondary text */
+  --border: #ecdccf; /* hairline borders */
+  --accent: #e08a63; /* coral primary (Generate, progress) */
+  --accent-strong: #d2734a; /* hover / pressed */
+  --accent-contrast: #ffffff; /* text on accent */
+  --ring: #e08a63;
+}
+
+/* ---- Design tokens (dark theme) -------------------------------------- */
+.dark {
+  --background: #15110e;
+  --surface: #211b16;
+  --surface-muted: #261e18;
+  --foreground: #f2ebe3;
+  --muted: #a89d92;
+  --border: #352b23;
+  --accent: #e5926e;
+  --accent-strong: #f0a585;
+  --accent-contrast: #1a130e;
+  --ring: #e5926e;
+}
+
+/*
+ * Expose the tokens to Tailwind so utilities like `bg-surface`,
+ * `text-muted`, `border-border`, `bg-accent` are generated.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Visible, consistent keyboard focus across the app. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Respect users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Thin, themed scrollbar for the horizontal history strip. */
+.scrollbar-soft {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.scrollbar-soft::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.scrollbar-soft::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+}
