@@ -16,7 +16,7 @@ function PrimaryNav() {
   const [active, setActive] = useState("image");
 
   return (
-    <nav aria-label="Primary" className={styles.navPill}>
+    <nav aria-label="Primary" className="flex w-full items-center justify-between">
       {NAV_ITEMS.map((item) => {
         const isActive = item.id === active;
         return (
@@ -39,7 +39,7 @@ function PrimaryNav() {
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between gap-4 py-4">
+    <header className="relative flex min-h-16 items-center justify-between gap-4 py-3">
       {/* Brand */}
       <a
         href="#"
@@ -50,10 +50,12 @@ export function Header() {
         <span className="sr-only">Fluxel Studio</span>
       </a>
 
-      {/* Center: credits bar + primary navigation */}
-      <div className="hidden flex-1 flex-col items-center gap-2 md:flex">
+      {/* Center: credits bar + primary navigation.
+          Absolutely centered on the page so the cluster stays at the true
+          midpoint regardless of how wide the left/right groups are. */}
+      <div className="absolute left-1/2 top-1/2 hidden w-[360px] max-w-[40vw] -translate-x-1/2 -translate-y-1/2 flex-col items-stretch gap-2 lg:flex">
         <div
-          className="w-full max-w-xs"
+          className="w-full"
           role="progressbar"
           aria-label="Monthly credits used"
           aria-valuemin={0}
