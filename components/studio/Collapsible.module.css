@@ -1,0 +1,26 @@
+.chevron {
+  transition: transform 0.25s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/*
+ * Animate height with the grid-template-rows 0fr -> 1fr technique, which works
+ * with auto-height content (unlike animating `height`). The inner element hides
+ * overflow while collapsing.
+ */
+.region {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.regionOpen {
+  grid-template-rows: 1fr;
+}
+
+.regionInner {
+  overflow: hidden;
+}

@@ -1,0 +1,73 @@
+.progressTrack {
+  position: relative;
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: var(--surface-muted);
+  border: 1px solid var(--border);
+}
+
+.progressFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+}
+
+/* Subtle sweeping highlight to make the usage bar feel alive. */
+.progressFill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+.navPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: 9999px;
+}
+
+.navButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 9999px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.navButton:hover {
+  color: var(--foreground);
+  background-color: var(--surface-muted);
+}
+
+.navButtonActive {
+  color: var(--accent-contrast);
+  background-color: var(--accent);
+}
+
+.navButtonActive:hover {
+  color: var(--accent-contrast);
+  background-color: var(--accent-strong);
+}

@@ -1,0 +1,116 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--surface-muted);
+}
+
+.media {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.5s ease, transform 0.45s ease;
+}
+
+.mediaLoaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card:hover .mediaLoaded {
+  transform: scale(1.06);
+}
+
+/* Loading shimmer shown until the image decodes. */
+.skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    var(--surface-muted) 30%,
+    color-mix(in srgb, var(--surface-muted) 55%, white) 50%,
+    var(--surface-muted) 70%
+  );
+  background-size: 200% 100%;
+  animation: cardShimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes cardShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  opacity: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent 45%);
+  transition: opacity 0.25s ease;
+}
+
+.card:hover .overlay,
+.card:focus-within .overlay {
+  opacity: 1;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 9999px;
+  color: #fff;
+  background-color: rgba(20, 16, 13, 0.55);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: rgba(20, 16, 13, 0.8);
+}
+
+.actionButtonActive {
+  color: var(--accent);
+}
+
+.playButton {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 3.25rem;
+  width: 3.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: #fff;
+  background-color: rgba(20, 16, 13, 0.55);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.playButton:hover {
+  transform: scale(1.08);
+  background-color: rgba(20, 16, 13, 0.8);
+}
+
+.video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

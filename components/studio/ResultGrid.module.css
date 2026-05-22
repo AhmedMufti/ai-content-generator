@@ -1,0 +1,37 @@
+.skeletonCard {
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(
+    100deg,
+    var(--surface-muted) 30%,
+    color-mix(in srgb, var(--surface-muted) 55%, white) 50%,
+    var(--surface-muted) 70%
+  );
+  background-size: 200% 100%;
+  animation: gridShimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes gridShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Gentle entrance for a freshly rendered batch. */
+.fadeIn {
+  animation: fadeIn 0.4s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
