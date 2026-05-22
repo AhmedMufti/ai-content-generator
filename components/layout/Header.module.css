@@ -36,14 +36,6 @@
   }
 }
 
-.navPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.3rem;
-  border-radius: 9999px;
-}
-
 .navButton {
   position: relative;
   display: inline-flex;
