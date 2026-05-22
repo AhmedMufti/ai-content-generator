@@ -53,9 +53,10 @@ npm run lint
 ```
 
 > **Network note:** generated media uses public placeholder services
-> ([Lorem Picsum](https://picsum.photos) for images, Google's public sample
-> bucket for videos), so an internet connection is needed to _display_ results.
-> Allowed image hosts are whitelisted in `next.config.mjs` (`images.remotePatterns`).
+> (portrait images via [pravatar](https://pravatar.cc), history thumbnails via
+> [Lorem Picsum](https://picsum.photos), and Google's public sample bucket for
+> videos), so an internet connection is needed to _display_ results. Allowed
+> image hosts are whitelisted in `next.config.mjs` (`images.remotePatterns`).
 
 ## 🔌 Dummy API
 
@@ -78,22 +79,22 @@ npm run lint
 Try it:
 
 ```
-http://localhost:3000/api/generate?type=image&count=4&ratio=16:9&prompt=mountain%20sunset
+http://localhost:3000/api/generate?type=image&count=4&ratio=1:1&prompt=studio%20portrait
 ```
 
 ```jsonc
 {
   "items": [
     {
-      "id": "mountain-sunset-kwa3te-0",
+      "id": "studio-portrait-kwa3te-0",
       "type": "image",
-      "src": "https://picsum.photos/seed/mountain-sunset-kwa3te-0/960/540",
-      "alt": "AI generated image: mountain sunset",
-      "width": 960, "height": 540, "ratio": "16:9"
+      "src": "https://i.pravatar.cc/600?u=studio-portrait-kwa3te-0",
+      "alt": "AI generated image: studio portrait",
+      "width": 640, "height": 640, "ratio": "1:1"
     }
     /* … */
   ],
-  "meta": { "type": "image", "count": 4, "ratio": "16:9", "prompt": "mountain sunset", "generatedAt": "…" }
+  "meta": { "type": "image", "count": 4, "ratio": "1:1", "prompt": "studio portrait", "generatedAt": "…" }
 }
 ```
 
@@ -173,10 +174,11 @@ production build.
 ## 📦 Notable decisions
 
 - **App Router + JavaScript** per the brief; no TypeScript.
-- The mockup's narrow description column is rendered as a **"Prompt details"**
-  card above the results in the content area — cleaner and more responsive while
-  preserving the content and hierarchy.
+- Layout mirrors the mockup's **three columns** (controls │ prompt-details │
+  results grid) on desktop, collapsing to two columns on tablet and a single
+  stack on mobile.
+- Image results use **portrait placeholders** to resemble the reference design;
+  history thumbnails stay varied. Swapping in a real model is a one-file change
+  in `app/api/generate/route.js`.
 - Advanced controls (style preset, detail strength, negative prompt) are wired
   into the request body so nothing is dead UI.
-- Placeholder media services keep the repo light; swapping in a real model is a
-  one-file change in `app/api/generate/route.js`.

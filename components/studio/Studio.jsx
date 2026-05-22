@@ -6,6 +6,7 @@ import { ResultDescription } from "./ResultDescription";
 import { ResultGrid } from "./ResultGrid";
 import { useGeneration } from "@/lib/useGeneration";
 import { DEFAULT_DESCRIPTION, DEFAULT_PROMPT } from "@/lib/mockData";
+import { MODELS } from "@/lib/constants";
 
 const INITIAL_SETTINGS = {
   mode: "image",
@@ -34,10 +35,15 @@ export function Studio() {
 
   const handleGenerate = useCallback(() => generate(settings), [generate, settings]);
 
+  const modelLabel =
+    MODELS.find((model) => model.value === settings.model)?.label ?? settings.model;
+
   return (
+    // Mirrors the mockup: controls | description | grid. From xl the right side
+    // splits into a description column beside the grid; below xl they stack.
     <main
       id="main"
-      className="mt-5 grid gap-5 lg:grid-cols-[minmax(300px,340px)_1fr]"
+      className="mt-5 grid gap-5 lg:grid-cols-[minmax(280px,320px)_1fr]"
     >
       <ControlPanel
         settings={settings}
@@ -46,15 +52,21 @@ export function Studio() {
         loading={status === "loading"}
       />
 
-      <div className="@container flex min-w-0 flex-col gap-4">
-        <ResultDescription description={DEFAULT_DESCRIPTION} />
-        <ResultGrid
-          items={results}
-          status={status}
-          count={lastCount}
-          ratio={lastRatio}
-          onRetry={handleGenerate}
+      <div className="flex min-w-0 flex-col gap-4 xl:flex-row xl:gap-5">
+        <ResultDescription
+          description={DEFAULT_DESCRIPTION}
+          model={modelLabel}
+          className="xl:w-52 xl:shrink-0"
         />
+        <div className="@container min-w-0 flex-1">
+          <ResultGrid
+            items={results}
+            status={status}
+            count={lastCount}
+            ratio={lastRatio}
+            onRetry={handleGenerate}
+          />
+        </div>
       </div>
     </main>
   );

@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/Button";
 import { MediaCard } from "./MediaCard";
 import styles from "./ResultGrid.module.css";
 
+// Columns adapt to the grid's own container width (not the viewport), so the
+// count is correct whether or not the description column is beside it.
 const GRID_CLASS =
-  "grid grid-cols-2 gap-3 @xl:grid-cols-3 @4xl:grid-cols-4 sm:gap-4";
+  "grid grid-cols-2 gap-3 sm:gap-4 @sm:grid-cols-3 @xl:grid-cols-4";
 
 function aspectStyle(ratio) {
   const [w, h] = String(ratio || "1:1").split(":").map(Number);

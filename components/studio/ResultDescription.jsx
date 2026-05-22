@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 
 /** Caption card describing the current result, with a copy-to-clipboard action. */
-export function ResultDescription({ description }) {
+export function ResultDescription({ description, model, className = "" }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -20,7 +20,7 @@ export function ResultDescription({ description }) {
   return (
     <section
       aria-label="Result description"
-      className="rounded-[var(--radius-card)] border border-border bg-surface/70 p-4"
+      className={`rounded-[var(--radius-card)] border border-border bg-surface/70 p-4 ${className}`}
     >
       <div className="mb-1.5 flex items-center justify-between gap-2">
         <h2 className="text-sm font-semibold">Prompt details</h2>
@@ -34,6 +34,13 @@ export function ResultDescription({ description }) {
         </button>
       </div>
       <p className="text-sm leading-relaxed text-muted">{description}</p>
+      {model && (
+        <div className="mt-3">
+          <span className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-foreground">
+            {model}
+          </span>
+        </div>
+      )}
     </section>
   );
 }
